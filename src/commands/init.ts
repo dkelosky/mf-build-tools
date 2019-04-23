@@ -3,11 +3,11 @@ import { Command } from "commander";
 import { readFile, writeFile } from "fs";
 import { compile } from "handlebars";
 import { promisify } from "util";
+import { run } from "../utils/run";
 
 const CONFIG_DIR_SUFFIX = "/config";
 const CONFIG_LOCAL = "/local.ts";
 const PACKAGE_JSON = "/package.json";
-
 
 /**
  * init command handler
@@ -16,17 +16,28 @@ const PACKAGE_JSON = "/package.json";
  * @param {Command} cmdObj
  */
 export async function init(name: string, cmdObj: Command) {
+
+  const cdw = `./${name}`;
+
   await copy(name);
-  render(`./${name}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, {
+  console.log(`Script files copied`);
+
+  // for rendering
+  const data = {
     name,
     hlq: cmdObj.hlq || `PUBLIC`,
     account: cmdObj.account || `#ACCT`,
-  });
-  render(`./${name}${PACKAGE_JSON}`, {
-    name,
-  });
-}
+  };
 
+  render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, data);
+  await render(`${cdw}${PACKAGE_JSON}`, data); // NOTE(Kelosky): wait for the last one only
+
+  console.log(`Templates rendered`);
+
+  console.log(`Initializing npm project`);
+  await run(`npm install`, cdw);
+  await run(`git init`, cdw);
+}
 
 /**
  * Asynchronously read and write

@@ -1,21 +1,19 @@
 #!/usr/bin/env node
-import { version, command, option, action, parse, help, Command } from "commander";
+import { version, command, parse, help, Command } from "commander";
+import { init } from "./commands/init";
 
 version(`0.0.1`);
 
-// command('rm <dir>')
-//   .option('-r, --recursive', 'Remove recursively')
-//   .action(function (dir: any, cmd: any) {
-//     console.log(`dir ${dir} cmd ${cmd}`)
-//   })
-
-command("init")
+command("init <name>")
+  .option("-q, --hlq <hlq>", "high level qualifier")
+  .option("-a, --account <account>", "job account number")
   .description("initialize a project")
-  .action(() => {
-    console.log(`called init`)
+  .action((name: string, cmdObj: Command) => {
+    init(name, cmdObj);
+    console.log(`Init complete`);
   });
 
-const cmd = parse(process.argv)
+const cmd = parse(process.argv);
 
 if (cmd.args.length === 0) {
   help();

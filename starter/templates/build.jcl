@@ -43,6 +43,15 @@
 //SYSIN    DD  DISP=SHR,DSN={{{../settings.hlq}}}.CPGM({{{@key}}})
 //SYSLIN   DD  DISP=SHR,DSN={{{../settings.hlq}}}.ASMPGM({{{@key}}})
 //SYSPRINT DD  SYSOUT=*
+{{#if jclStatements}}
+{{#each jclStatements}}
+{{{.}}}
+{{/each}}
+{{else}}
+{{#each ../job.compile.jclStatements}}
+{{{.}}}
+{{/each}}
+{{/if}}
 //         ENDIF
 {{/each}}
 {{#each job.assemble.sources}}
@@ -78,6 +87,15 @@
 //SYSPRINT DD  SYSOUT=*
 //SYSIN    DD  DISP=SHR,DSN={{{../settings.hlq}}}.ASMPGM({{{@key}}})
 //SYSLIN   DD  DISP=SHR,DSN={{{../settings.hlq}}}.OBJLIB({{{@key}}})
+{{#if jclStatements}}
+{{#each jclStatements}}
+{{{.}}}
+{{/each}}
+{{else}}
+{{#each ../job.assemble.jclStatements}}
+{{{.}}}
+{{/each}}
+{{/if}}
 //         ENDIF
 {{/each}}
 {{#each job.bind.sources}}
@@ -127,6 +145,15 @@
 /*
 //SYSLMOD  DD  DISP=SHR,DSN={{{../settings.hlq}}}.LOADLIB({{{@key}}})
 //SYSPRINT DD  SYSOUT=*
+{{#if jclStatements}}
+{{#each jclStatements}}
+{{{.}}}
+{{/each}}
+{{else}}
+{{#each ../job.bind.jclStatements}}
+{{{.}}}
+{{/each}}
+{{/if}}
 //         ENDIF
 {{/each}}
 {{#each job.execute.sources}}

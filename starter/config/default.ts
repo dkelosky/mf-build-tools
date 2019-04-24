@@ -12,7 +12,7 @@ export default {
   // settings for all other sections
   settings: {
     hlq: "PUBLIC.TEMPLATE",
-    name: "TEMPLATE",
+    name: "{{{name}}}",
     account: "#ACCT",
     description: "COMP/ASM/BIND/RUN",
     messageClass: "A",

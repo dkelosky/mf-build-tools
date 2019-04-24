@@ -1,10 +1,10 @@
-import { copy } from "../utils/copy";
 import { Command } from "commander";
 import { readFile, writeFile, unlink } from "fs";
 import { compile } from "handlebars";
 import { promisify } from "util";
 import { run } from "../utils/run";
 import { dirname } from "path";
+import { ncp } from "ncp";
 
 const CONFIG_DIR_SUFFIX = "/config";
 const CONFIG_DEFAULT = "/default.ts";
@@ -28,20 +28,19 @@ export async function init(name: string, cmdObj: Command) {
 
   // copy all files
   const cdw = `./${name}`;
-  await copy(`${__dirname}/../../starter`, cdw);
+  const cp = promisify(ncp);
+  await cp(`${__dirname}/../../starter`, cdw);
   console.log(`Script files copied...`);
 
-  const data = {
-    name,
-    hlq: cmdObj.hlq || `PUBLIC`,
-    account: cmdObj.account || `#ACCT`,
-  };
-
   // render copied files for templates
-  render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, data);
+  render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, {
+    name: name.toUpperCase(),
+    hlq: cmdObj.hlq.toUpperCase() || `PUBLIC`,
+    account: cmdObj.account || `#ACCT`,
+  });
   render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_DEFAULT}`, { name: name.toUpperCase() });
   render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
-  await render(`${cdw}${PACKAGE_JSON}`, data); // NOTE(Kelosky): wait for the last one only
+  await render(`${cdw}${PACKAGE_JSON}`, { name: name.toLowerCase() }); // NOTE(Kelosky): wait for the last one only
   console.log(`Initial templates rendered...`);
 
   // init npm

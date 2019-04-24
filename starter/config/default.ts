@@ -14,7 +14,7 @@ export default {
     hlq: "PUBLIC.TEMPLATE",
     name: "TEMPLATE",
     account: "#ACCT",
-    description: "ASM/BIND/RUN",
+    description: "COMP/ASM/BIND/RUN",
     messageClass: "A",
     jobClass: "A",
   },
@@ -33,7 +33,7 @@ export default {
       options: assemblyOptions,
       includes: assemblyMaclibs,
       sources: {
-        TEMPLATE: {
+        "{{{name}}}": {
           // override options here
         },
       },
@@ -44,7 +44,7 @@ export default {
       options: bindOptions,
       // includes: nothing included in every bind right now
       sources: {
-        TEMPLATE: {
+        "{{{name}}}": {
           // override options here
 
           // include data sets containing objects
@@ -63,7 +63,7 @@ export default {
     execute: {
       // options: no parms to every exec right now (options are PARM=)
       sources: {
-        TEMPLATE: {
+        "{{{name}}}": {
           // override options here (options are PARM=)
           options: "'HELLO WORLD'",
           jclStatements: [
@@ -99,14 +99,14 @@ export default {
   deploy: {
     ftp: {
       options: [
-        "cd 'KELDA16.WORK.LOADLIB'",
+        "cd 'PUBLIC.TEMPLATE.LOADLIB'",
         "mdelete *"
       ],
       includes: [
-        "TEMPLATE",
+        "{{{name}}}",
       ],
       sources: {
-        CA11: {},
+        localhost: {},
       }
     }
   },

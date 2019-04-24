@@ -5,7 +5,7 @@
  *
  * Examples:
  *  npm run upload
- *  npm run upload -- asmpgm 
+ *  npm run upload -- asmpgm
  *  npm run upload -- asmpgm asmmac/#entry asmmac/#exit
  */
 
@@ -24,19 +24,19 @@ const numOfParms = process.argv.length - 2;
 
 // upload command line input only
 if (numOfParms > 0) {
-    for (let i = 0; i < numOfParms; i++) {
-        if (dirname(process.argv[2 + i]) === ".") {
-            uploadFolder(process.argv[2 + i]);
-        } else {
-            uploadFolder(dirname(process.argv[2 + i]), basename(process.argv[2 + i]));
-        }
+  for (let i = 0; i < numOfParms; i++) {
+    if (dirname(process.argv[2 + i]) === ".") {
+      uploadFolder(process.argv[2 + i]);
+    } else {
+      uploadFolder(dirname(process.argv[2 + i]), basename(process.argv[2 + i]));
     }
+  }
 
-    // otherwise upload everything by default
+  // otherwise upload everything by default
 } else {
-    Object.keys(uploads).forEach((key) => {
-        uploadFolder(key);
-    });
+  Object.keys(uploads).forEach((key) => {
+    uploadFolder(key);
+  });
 }
 
 /**
@@ -45,27 +45,29 @@ if (numOfParms > 0) {
  * @param {string} [file] - option file within the folder
  */
 function uploadFolder(folder: string, file?: string) {
-    const dir = `./zossrc/${folder}`;
+  const dir = `./zossrc/${folder}`;
 
-    // make sure file exists
-    if (existsSync(dir)) {
+  // make sure file exists
+  if (existsSync(dir)) {
 
-        // upload a specific file
-        if (file) {
-            const fileWOutExtension = basename(file, extname(file));
-            issueUploadCommnad(`${dir}/${file}`, `${hlq}.${uploads[folder]}(${fileWOutExtension})`);
+    // upload a specific file
+    if (file) {
+      const fileWOutExtension = basename(file, extname(file));
+      issueUploadCommnad(`${dir}/${file}`, `${hlq}.${uploads[folder]}(${fileWOutExtension})`);
 
-            // upload all files in a folder
-        } else {
-            const files = readdirSync(dir);
-            files.forEach((file) => {
-                const fileWOutExtension = basename(file, extname(file));
-                issueUploadCommnad(`${dir}/${file}`, `${hlq}.${uploads[folder]}(${fileWOutExtension})`);
-            });
-        }
+      // upload all files in a folder
     } else {
-        console.error(`>>> ${dir} does not exist`);
+      const files = readdirSync(dir);
+      files.forEach((file) => {
+        const fileWOutExtension = basename(file, extname(file));
+        if (fileWOutExtension !== `.gitkeep`) {
+          issueUploadCommnad(`${dir}/${file}`, `${hlq}.${uploads[folder]}(${fileWOutExtension})`);
+        }
+      });
     }
+  } else {
+    console.error(`>>> ${dir} does not exist`);
+  }
 }
 
 
@@ -75,11 +77,11 @@ function uploadFolder(folder: string, file?: string) {
  * @param {string} dataSet - data set target
  */
 function issueUploadCommnad(localFile: string, dataSet: string) {
-    const cmd = `zowe files upload ftds "${localFile}" "${dataSet}"`;
-    console.log(cmd);
-    exec(cmd, (err, stdout, stderr) => {
-        if (err) console.log(err)
-        if (stdout) console.log(stdout.toString());
-        if (stderr) console.log(stderr.toString());
-    });
+  const cmd = `zowe files upload ftds "${localFile}" "${dataSet}"`;
+  console.log(cmd);
+  exec(cmd, (err, stdout, stderr) => {
+    if (err) console.log(err)
+    if (stdout) console.log(stdout.toString());
+    if (stderr) console.log(stderr.toString());
+  });
 }

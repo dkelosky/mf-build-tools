@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-import { version, command, parse, help, Command } from "commander";
+import { version, command, parse, help, Command, usage, description } from "commander";
 import { init } from "./commands/init";
 
-version(`0.0.1`);
+version(`0.0.1`)
+description(`Example:\n  mf-build init asmtest -q kelda16.asmtest -a 105300000`);
+// usage("mf-build init asmtest -q kelda16.asmtest -a 105300000")
 
 command("init <name>")
   .option("-q, --hlq <hlq>", "high level qualifier")

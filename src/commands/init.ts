@@ -20,9 +20,8 @@ export async function init(name: string, cmdObj: Command) {
   const cdw = `./${name}`;
 
   await copy(name);
-  console.log(`Script files copied`);
+  console.log(`Script files copied...`);
 
-  // for rendering
   const data = {
     name,
     hlq: cmdObj.hlq || `PUBLIC`,
@@ -31,12 +30,17 @@ export async function init(name: string, cmdObj: Command) {
 
   render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, data);
   await render(`${cdw}${PACKAGE_JSON}`, data); // NOTE(Kelosky): wait for the last one only
+  console.log(`Templates rendered...`);
 
-  console.log(`Templates rendered`);
-
-  console.log(`Initializing npm project`);
+  console.log(`Initializing npm project...`);
   await run(`npm install`, cdw);
+
+  console.log(`Initializing git project...`);
   await run(`git init`, cdw);
+  await run(`git add .`, cdw);
+  await run(`git commit -m "Initial commit"`, cdw);
+
+  console.log(`Initializing complete!`);
 }
 
 /**

@@ -10,7 +10,6 @@ command("init <name>")
   .description("initialize a project")
   .action((name: string, cmdObj: Command) => {
     init(name, cmdObj);
-    console.log(`Init complete`);
   });
 
 const cmd = parse(process.argv);

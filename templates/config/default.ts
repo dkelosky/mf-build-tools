@@ -71,6 +71,21 @@ export default {
     }
   },
 
+  convert: {
+    assemble: {
+      options: assemblyOptions,
+      includes: assemblyMaclibs,
+      sources: {
+        DCBD: {
+          // override options here
+        },
+        IHADCBE: {},
+        IHAECB: {},
+        JFCB: {},
+      },
+    },
+  },
+
   deploy: {
     ftp: {
       options: [

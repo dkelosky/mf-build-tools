@@ -137,13 +137,14 @@
 //RUN      EXEC PGM={{{@key}}}{{#if options}},
 //         PARM=({{{options}}}){{/if}}
 //STEPLIB  DD  DISP=SHR,DSN={{{../settings.hlq}}}.LOADLIB
-//SNAP     DD  SYSOUT=*
-//SYSPRINT DD  SYSOUT=*
-//SYSMDUMP DD  DUMMY
-//SNAP     DD  SYSOUT=*
-//IN       DD  *
-CAN YOU SEE ME
-CAN YOU SEE ALSO
-/*
+{{#if jclStatements}}
+{{{.}}}
+{{#each jclStatements}}
+{{/each}}
+{{else}}
+{{each ../job.execute.jclStatements}}
+{{{.}}}
+{{/each}}
+{{/if}}
 //         ENDIF
 {{/each}}

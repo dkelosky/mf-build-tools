@@ -66,6 +66,16 @@ export default {
         TEMPLATE: {
           // override options here (options are PARM=)
           options: "'HELLO WORLD'",
+          jclStatements: [
+            "//SNAP     DD  SYSOUT=*",
+            "//SYSPRINT DD  SYSOUT=*",
+            "//SYSMDUMP DD  DUMMY",
+            "//SNAP     DD  SYSOUT=*",
+            "//IN       DD  *",
+            "CAN YOU SEE ME",
+            "CAN YOU SEE ALSO",
+            "/*",
+          ],
         },
       }
     }

@@ -18,8 +18,9 @@ const PACKAGE_JSON = "/package.json";
 export async function init(name: string, cmdObj: Command) {
 
   const cdw = `./${name}`;
-
-  await copy(name);
+  // console.log("@TEST")
+  // console.log(`${__dirname}/../../starter`)
+  await copy(`${__dirname}/../../starter`, cdw);
   console.log(`Script files copied...`);
 
   const data = {
@@ -30,7 +31,7 @@ export async function init(name: string, cmdObj: Command) {
 
   render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, data);
   await render(`${cdw}${PACKAGE_JSON}`, data); // NOTE(Kelosky): wait for the last one only
-  console.log(`Templates rendered...`);
+  console.log(`Initial templates rendered...`);
 
   console.log(`Initializing npm project...`);
   await run(`npm install`, cdw);

@@ -6,10 +6,10 @@ import { ncp } from "ncp";
  * @param {string} target
  * @returns
  */
-export function copy(target: string) {
+export function copy(source: string, target: string) {
   return new Promise((resolve, reject) => {
     try {
-        ncp(__dirname + "./../../templates", `./${target}`, (err) => {
+      ncp(source, target, (err) => {
         if (err) {
           reject(err);
         } else {

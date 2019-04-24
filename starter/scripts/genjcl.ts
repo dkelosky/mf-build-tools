@@ -16,7 +16,7 @@ import * as config from "config";
 import * as handlebars from "handlebars";
 import * as fs from "fs";
 import { dirname, basename } from "path";
-import mkdirp from "mkdirp";
+import * as mkdirp from "mkdirp";
 
 // get config
 const job: any = config.get('job');
@@ -31,7 +31,7 @@ const numOfParms = process.argv.length - 2;
 // output jcl file name
 const jclOutFileKey = `jcl-out-file=`;
 const jclTemplatefile = `./templates/build.jcl`;
-let jclOutFile = `./build/custom.jcl`;
+let jclOutFile = `./lib/jcl/build.jcl`;
 
 // if input parms, add to map, then loop up job keys and keep what is in the map
 if (numOfParms > 0) {

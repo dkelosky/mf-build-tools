@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "allocate": "node ./scripts/lib/allocate",
-    "delete": "node ./scripts/lib/delete",
+    "allocate": "node ./lib/scripts/allocate",
+    "delete": "node ./lib/scripts/delete",
     "postinstall": "npm run build:scripts",
-    "upload": "node ./scripts/lib/upload",
-    "purge": "node ./scripts/lib/purge",
+    "upload": "node ./lib/scripts/upload",
+    "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:scripts": "tsc --pretty",
-    "genjcl": "node ./scripts/lib/genjcl"
+    "genjcl": "node ./lib/scripts/genjcl"
   },
   "author": "",
   "license": "MIT",
@@ -27,6 +27,7 @@
     "jest-stare": "^1.13.2",
     "mkdirp": "^0.5.1",
     "ts-jest": "^24.0.2",
+    "ts-node": "^7.0.1",
     "tslint": "^5.16.0",
     "typescript": "^3.4.4"
   }

@@ -138,11 +138,11 @@
 //         PARM=({{{options}}}){{/if}}
 //STEPLIB  DD  DISP=SHR,DSN={{{../settings.hlq}}}.LOADLIB
 {{#if jclStatements}}
-{{{.}}}
 {{#each jclStatements}}
+{{{.}}}
 {{/each}}
 {{else}}
-{{each ../job.execute.jclStatements}}
+{{#each ../job.execute.jclStatements}}
 {{{.}}}
 {{/each}}
 {{/if}}

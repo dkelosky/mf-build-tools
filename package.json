@@ -27,6 +27,7 @@
     "@types/mkdirp": "^0.5.2",
     "@types/ncp": "^2.0.1",
     "@types/node": "^11.13.6",
+    "config": "^3.1.0",
     "jest": "^24.7.1",
     "jest-stare": "^1.13.2",
     "mkdirp": "^0.5.1",
@@ -36,7 +37,6 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "config": "^3.1.0",
     "handlebars": "^4.1.2",
     "ncp": "^2.0.0"
   }

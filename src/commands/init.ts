@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { readFile, writeFile, unlink } from "fs";
+import { readFile, writeFile, unlink, readFileSync } from "fs";
 import { compile } from "handlebars";
 import { promisify } from "util";
 import { run } from "../utils/run";
@@ -28,18 +28,21 @@ export async function init(name: string, cmdObj: Command) {
 
   // copy all files
   const cdw = `./${name}`;
+  (ncp as any).limit = 1;
   const cp = promisify(ncp);
   await cp(`${__dirname}/../../starter`, cdw);
+
   console.log(`Script files copied...`);
 
   // render copied files for templates
-  render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, {
+  const hlq = cmdObj.hlq || `PUBLIC`;
+  await render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_LOCAL}`, {
     name: name.toUpperCase(),
-    hlq: cmdObj.hlq.toUpperCase() || `PUBLIC`,
+    hlq: hlq.toUpperCase(),
     account: cmdObj.account || `#ACCT`,
   });
-  render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_DEFAULT}`, { name: name.toUpperCase() });
-  render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
+  await render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_DEFAULT}`, { name: name.toUpperCase() });
+  await render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
   await render(`${cdw}${PACKAGE_JSON}`, { name: name.toLowerCase() }); // NOTE(Kelosky): wait for the last one only
   console.log(`Initial templates rendered...`);
 

@@ -11,9 +11,6 @@
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:scripts": "tsc --pretty",
-    "build:{{{name}}}": "npm run upload -- asmpgm/{{{name}}}.asm && npm run jcl:{{{name}}}",
-    "jcl:{{{name}}}": "npm run genjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}} && zowe jobs submit lf \"./lib/jcl/build_{{{name}}}.jcl\" --directory \"./output\"",
-    "execute:{{{name}}}": "npm run genjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}} && zowe jobs submit lf \"./lib/jcl/execute_{{{name}}}.jcl\" --directory \"./output\"",
     "genjcl": "node ./lib/scripts/genjcl"
   },
   "author": "",

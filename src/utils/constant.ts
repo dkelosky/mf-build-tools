@@ -29,7 +29,7 @@ export const scripts: IScript[] = [
     command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}}`,
   },
   {
-    script: `genbuildjcl:execute{{{name}}}`,
+    script: `genbuildjcl:execute:{{{name}}}`,
     command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}}`,
   },
 ];

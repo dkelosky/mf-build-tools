@@ -3,10 +3,11 @@ import { ncp } from "ncp";
 import { run } from "../utils/run";
 
 export async function update() {
+  console.log(`Updating script and template files...`);
   const cp = promisify(ncp);
   await cp(`${__dirname}/../../starter/templates`, `templates`);
   await cp(`${__dirname}/../../starter/scripts`, `scripts`);
-  console.log(`Script files updated...`);
+  console.log(`Script and template files updated...`);
 
   console.log(`Rebuilding scripts...`);
   await run(`npm run build:scripts`);

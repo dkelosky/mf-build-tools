@@ -6,8 +6,10 @@ import { generate } from "./commands/generate";
 
 version(`0.0.1`)
 description(`Example:\n` +
-  `  mf-build init asmtest -q kelda16.asmtest -a 105300000\n`);
-  `  mf-build init asmtest -q kelda16.asmtest -a 105300000\n`);
+  `  mf-build init asmtest -q kelda16.asmtest -a 105300000\n` +
+  `  mf-build generate newmod\n` +
+  `  mf-build update\n`
+  );
 
 command("init <name>")
   .option("-q, --hlq <hlq>", "high level qualifier")

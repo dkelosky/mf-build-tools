@@ -22,7 +22,7 @@ export function generate(name: string, cdw: string) {
     pkg.scripts[script] = command;
   });
 
-  writeFileSync("package.json", JSON.stringify(pkg, null, 2));
+  writeFileSync(`${cdw}/package.json`, JSON.stringify(pkg, null, 2));
 
   console.log(`Scripts added!`);
 }

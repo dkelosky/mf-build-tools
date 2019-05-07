@@ -11,24 +11,26 @@
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:scripts": "tsc --pretty",
-    "genjcl": "node ./lib/scripts/genjcl"
+    "genbuildjcl": "node ./lib/scripts/genbuildjcl"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/config": "*",
-    "@types/jest": "*",
-    "@types/mkdirp": "*",
-    "@types/ncp": "*",
-    "@types/node": "*",
-    "config": "*",
-    "handlebars": "*",
-    "jest": "*",
-    "jest-stare": "*",
-    "mkdirp": "*",
-    "ts-jest": "*",
     "ts-node": "*",
-    "tslint": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "@types/config": "0.0.34",
+    "@types/jest": "^24.0.11",
+    "@types/mkdirp": "^0.5.2",
+    "@types/ncp": "^2.0.1",
+    "@types/node": "^11.13.6",
+    "config": "^3.1.0",
+    "handlebars": "^4.1.2",
+    "jest": "^24.7.1",
+    "jest-stare": "^1.13.2",
+    "mkdirp": "^0.5.1",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.4"
   }
 }

@@ -24,7 +24,7 @@ command("update")
 command("generate <name>")
   .description("generate new entry")
   .action((name: string) => {
-    generate(name);
+    generate(name, `./${name}`);
   });
 
 const cmd = parse(process.argv);

@@ -1,10 +1,11 @@
 import { Command } from "commander";
-import { readFile, writeFile, unlink, readFileSync } from "fs";
+import { readFile, writeFile, unlink } from "fs";
 import { compile } from "handlebars";
 import { promisify } from "util";
 import { run } from "../utils/run";
 import { dirname } from "path";
 import { ncp } from "ncp";
+import { generate } from "./generate";
 
 const CONFIG_DIR_SUFFIX = "/config";
 const CONFIG_DEFAULT = "/default.ts";
@@ -47,8 +48,19 @@ export async function init(name: string, cmdObj: Command) {
   console.log(`Initial templates rendered...`);
 
   // init npm
-  console.log(`Initializing npm project...`);
-  await run(`npm install`, cdw);
+  console.log(`Initializing npm project (this may take a while)...`);
+  try {
+    await run(`npm install`, cdw);
+  } catch (err) {
+    console.error(`\n>>> Failure: ${err}\n`);
+
+  }
+  // generate first scripts
+  try {
+    generate(name, cdw);
+  } catch (err) {
+    console.error(`\n>>> Failure: ${err}\n`);
+  }
 
   // init git
   console.log(`Initializing git project...`);

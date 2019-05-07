@@ -2,13 +2,19 @@ import { compile } from "handlebars";
 import { scripts } from "../utils/constant";
 import { readFileSync, writeFileSync } from "fs";
 
-export async function generate(name: string) {
+export function generate(name: string, cdw: string) {
 
   console.log(`Adding scripts...`);
 
   const data = { name };
+  let pkg: any;
+  try {
+    pkg = JSON.parse(readFileSync(`${cdw}/package.json`).toString());
 
-  const pkg = JSON.parse(readFileSync("package.json").toString());
+  } catch (err) {
+    console.error(err);
+    throw new Error(`Generate failed`);
+  }
 
   scripts.forEach((entry) => {
     const script = compile(entry.script)(data);

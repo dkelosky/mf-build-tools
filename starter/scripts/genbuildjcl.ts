@@ -4,19 +4,17 @@
  * Use to generate custom JCL to compile, assemble, bind, and execute all source or a subset of it
  *
  * Examples:
- *  npm run genjcl
- *  npm run genjcl -- assemble bind execute
- *  npm run genjcl -- compile assemble/template bind execute
+ *  npm run genbuildjcl
+ *  npm run genbuildjcl -- assemble bind execute
+ *  npm run genbuildjcl -- compile assemble/template bind execute
  */
 
 // bypass immutability
 process.env.ALLOW_CONFIG_MUTATIONS = "yes"; // value doesn't matter
 
 import * as config from "config";
-import * as handlebars from "handlebars";
-import * as fs from "fs";
 import { dirname, basename } from "path";
-import * as mkdirp from "mkdirp";
+import { getOutFile, render } from "./genjclutil";
 
 // get config
 const job: any = config.get('job');
@@ -29,9 +27,8 @@ const steps = new Map<string, Map<string, null> | null>();
 const numOfParms = process.argv.length - 2;
 
 // output jcl file name
-const jclOutFileKey = `jcl-out-file=`;
 const jclTemplatefile = `./templates/build.jcl`;
-let jclOutFile = `./lib/jcl/build.jcl`;
+const jclOutFile = getOutFile(`./lib/jcl/build.jcl`);
 
 // if input parms, add to map, then loop up job keys and keep what is in the map
 if (numOfParms > 0) {
@@ -39,12 +36,7 @@ if (numOfParms > 0) {
 
     const parm = process.argv[2 + i];
 
-    if (parm.indexOf(jclOutFileKey) === 0) {
-      jclOutFile = parm.substr(jclOutFileKey.length, parm.length - jclOutFileKey.length);
-      continue;
-    }
-
-    // if only a job step (no sources) e.g. npm run genjcl -- assemble
+    // if only a job step (no sources) e.g. npm run genbuildjcl -- assemble
     if (dirname(parm) === ".") {
 
       // see if it exists
@@ -57,7 +49,7 @@ if (numOfParms > 0) {
       // add this entry to map
       steps.set(`${parm}`, null);
 
-      // else specified step and sources, e.g. npm run genjcl -- compile assemble/template
+      // else specified step and sources, e.g. npm run genbuildjcl -- compile assemble/template
     } else {
 
       const sources = steps.get(`${dirname(parm)}`);
@@ -102,10 +94,4 @@ if (steps.size > 0) {
 }
 
 // render the JCL
-const jcl = fs.readFileSync(`${jclTemplatefile}`).toString();
-const compiled = handlebars.compile(jcl);
-const rendered = compiled(config);
-
-if (!fs.existsSync(dirname(jclOutFile))) mkdirp.sync(dirname(jclOutFile));
-fs.writeFileSync(`${jclOutFile}`, rendered);
-console.log(`Generated custom JCL to ${jclOutFile}`);
+render(jclTemplatefile, config, jclOutFile);

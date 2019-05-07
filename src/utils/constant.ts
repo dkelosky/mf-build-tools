@@ -10,11 +10,11 @@ export const scripts: IScript[] = [
   },
   {
     script: `build:{{{name}}}`,
-    command: `npm run upload:{{{name}}} && npm run genjcl:build:{{{name}}} && npm run submit:build:{{{name}}}`,
+    command: `npm run upload:{{{name}}} && npm run genbuildjcl:build:{{{name}}} && npm run submit:build:{{{name}}}`,
   },
   {
     script: `execute:{{{name}}}`,
-    command: `npm run upload:{{{name}}} && npm run genjcl:execute:{{{name}}} && npm run submit:execute:{{{name}}}`,
+    command: `npm run upload:{{{name}}} && npm run genbuildjcl:execute:{{{name}}} && npm run submit:execute:{{{name}}}`,
   },
   {
     script: `submit:build:{{{name}}}`,
@@ -25,11 +25,11 @@ export const scripts: IScript[] = [
     command: "zowe jobs submit lf \"./lib/jcl/execute_{{{name}}}.jcl\" --directory \"./output\"",
   },
   {
-    script: `genjcl:build:{{{name}}}`,
-    command: `npm run genjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}}`,
+    script: `genbuildjcl:build:{{{name}}}`,
+    command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}}`,
   },
   {
-    script: `genjcl:execute{{{name}}}`,
-    command: `npm run genjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}}`,
+    script: `genbuildjcl:execute{{{name}}}`,
+    command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}}`,
   },
 ];

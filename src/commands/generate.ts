@@ -1,12 +1,18 @@
 import { compile } from "handlebars";
-import { scripts } from "../utils/constant";
+import { scripts, deployScripts, chdsectScripts } from "../utils/constant";
 import { readFileSync, writeFileSync } from "fs";
+import { Command } from "commander";
 
-export function generate(name: string, cdw: string) {
+interface IData {
+  name: string;
+  target?: string;
+}
+
+export function generate(name: string, cdw: string, cmdObj?: Command) {
 
   console.log(`Adding scripts...`);
 
-  const data = { name };
+  const data: IData = { name };
   let pkg: any;
   try {
     pkg = JSON.parse(readFileSync(`${cdw}/package.json`).toString());
@@ -16,11 +22,30 @@ export function generate(name: string, cdw: string) {
     throw new Error(`Generate failed`);
   }
 
-  scripts.forEach((entry) => {
-    const script = compile(entry.script)(data);
-    const command = compile(entry.command)(data);
-    pkg.scripts[script] = command;
-  });
+  if (cmdObj && cmdObj.deploy) {
+    deployScripts.forEach((entry) => {
+      const script = compile(entry.script)(data);
+      const command = compile(entry.command)(data);
+      pkg.scripts[script] = command;
+    });
+  }
+
+  if (cmdObj && cmdObj.chdsect) {
+    chdsectScripts.forEach((entry) => {
+      const script = compile(entry.script)(data);
+      const command = compile(entry.command)(data);
+      pkg.scripts[script] = command;
+    });
+  }
+
+  if (cmdObj && cmdObj.only) {
+  } else {
+    scripts.forEach((entry) => {
+      const script = compile(entry.script)(data);
+      const command = compile(entry.command)(data);
+      pkg.scripts[script] = command;
+    });
+  }
 
   writeFileSync(`${cdw}/package.json`, JSON.stringify(pkg, null, 2));
 

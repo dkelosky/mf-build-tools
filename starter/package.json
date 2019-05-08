@@ -11,6 +11,7 @@
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:scripts": "tsc --pretty",
+    "gendeployjcl": "node ./lib/scripts/gendeployjcl",
     "genbuildjcl": "node ./lib/scripts/genbuildjcl"
   },
   "author": "",

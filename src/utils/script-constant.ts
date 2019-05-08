@@ -38,11 +38,15 @@ export const asmScripts: IScript[] = [
 // it will be under deploy:{{{name}}} to submit and delete
 export const deployScripts: IScript[] = [
   {
+    script: `deploy:{{{name}}}`,
+    command: "npm run gendeployjcl:{{{name}}} && npm run submit:deploy:{{{name}}}",
+  },
+  {
     script: `submit:deploy:{{{name}}}`,
     command: "zowe jobs submit lf \"./lib/jcl/deploy_{{{name}}}.jcl\" --directory \"./output\"",
   },
   {
-    script: `gendeployjcl:deploy:{{{name}}}`,
+    script: `gendeployjcl:{{{name}}}`,
     command: `npm run gendeployjcl -- jcl-out-file=./lib/jcl/deploy_{{{name}}}.jcl`,
   },
 ];

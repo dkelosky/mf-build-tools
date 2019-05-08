@@ -6,7 +6,7 @@
 //             REGION=0M
 /*JOBPARM SYSAFF=*
 {{#each deploy.ftp.sources}}
-//* 
+//*
 //* FTP {{{@key}}}
 //*
 //FTPOUT   EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=128
@@ -14,7 +14,11 @@
 //SYSTSPRT DD   SYSOUT=*
 //OUTPUT   DD   SYSOUT=*
 //SYSTSIN  DD  *
-FTP {{{@key}}}
+{{#if target}}
+FTP {{{target}}}
+{{else}}
+FTP {{{../deploy.ftp.target}}}
+{{/if}}
 /*
 //INPUT    DD   *
 {{#if options}}

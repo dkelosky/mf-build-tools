@@ -105,9 +105,7 @@ export default {
         "cd 'PUBLIC.TEMPLATE.LOADLIB'",
         "mdelete *"
       ],
-      includes: [
-        // "localhost",
-      ],
+      target: "localhost",
       sources: {
         /// @deploySources - THIS MUST FOLLOW deploy.sources
         "{{{name}}}": {},

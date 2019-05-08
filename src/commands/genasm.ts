@@ -1,6 +1,6 @@
 import { compile } from "handlebars";
 import { asmScripts, deployScripts, chdsectScripts } from "../utils/script-constant";
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, fstat } from "fs";
 import { Command } from "commander";
 import { ncp } from "ncp";
 import { promisify } from "util";
@@ -24,6 +24,35 @@ export async function genasm(name: string, cdw: string, cmdObj?: Command) {
     await cp(`${__dirname}/../../starter/zossrc/asmpgm`, `${cdw}/zossrc/asmpgm`);
   } catch (err) {
     console.error(`\n>>> Copy failure <<<\n${err}\n`);
+  }
+
+  try {
+    let file = readFileSync(`config/default.ts`).toString();
+    const lines = file.split(`\n`);
+    const positions: number[] = [];
+
+    // find indexes
+    for (let i = 0; i < lines.length; i++) {
+      if (
+        lines[i].indexOf(`@assembleSources`) > 0 ||
+        lines[i].indexOf(`@bindSources`) > 0 ||
+        lines[i].indexOf(`@executeSources`) > 0 ||
+        lines[i].indexOf(`@deploySources`) > 0
+      ) {
+        positions.push(i + 1);
+      }
+    }
+
+    // add to each
+    let accumulator = 0;
+    for (let pos of positions) {
+      lines.splice(pos + accumulator++, 0, `        "${name.toUpperCase()}": {},`);
+    }
+
+    writeFileSync(`config/default.ts`, lines.join(`\n`));
+
+  } catch (err) {
+    console.error(`\n>>> Config update failure <<<\n${err}\n`);
   }
 
   try {

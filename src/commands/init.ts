@@ -55,9 +55,10 @@ export async function init(name: string, cmdObj: Command) {
 
   // generate first scripts
   try {
-    let cmd: Command = new Command(`fake_command`);
-    cmd.deploy = true;
-    genasm(name, cdw, cmd);
+    // let cmd: Command = new Command(`fake_command`);
+    // cmd.deploy = true;
+    // genasm(name, cdw, cmd);
+    genasm(name, cdw);
   } catch (err) {
     console.error(`\n>>> Gen failure <<<\n${err}\n`);
   }

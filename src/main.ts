@@ -27,7 +27,7 @@ command("update")
   });
 
 command("generate <name>")
-  .option("-d, --deploy", "include deploy")
+  // .option("-d, --deploy", "include deploy")
   .option("-c, --chdsect", "include chdsect")
   .option("-o, --only", "skip other scripts")
   .description("generate new entry")

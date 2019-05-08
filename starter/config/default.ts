@@ -33,6 +33,7 @@ export default {
       options: assemblyOptions,
       includes: assemblyMaclibs,
       sources: {
+        /// @assembleSources - THIS MUST FOLLOW job.assemble.sources
         "{{{name}}}": {
           // override options here
         },
@@ -44,6 +45,7 @@ export default {
       options: bindOptions,
       // includes: nothing included in every bind right now
       sources: {
+        /// @bindSources - THIS MUST FOLLOW job.bind.sources
         "{{{name}}}": {
           // override options here
 
@@ -63,6 +65,7 @@ export default {
     execute: {
       // options: no parms to every exec right now (options are PARM=)
       sources: {
+        /// @executeSources - THIS MUST FOLLOW job.execute.sources
         "{{{name}}}": {
           // override options here (options are PARM=)
           options: "'HELLO WORLD'",
@@ -78,7 +81,7 @@ export default {
           ],
         },
       }
-    }
+    },
   },
 
   convert: {
@@ -103,10 +106,11 @@ export default {
         "mdelete *"
       ],
       includes: [
-        "{{{name}}}",
+        // "localhost",
       ],
       sources: {
-        localhost: {},
+        /// @deploySources - THIS MUST FOLLOW deploy.sources
+        "{{{name}}}": {},
       }
     }
   },

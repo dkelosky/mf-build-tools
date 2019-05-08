@@ -10,7 +10,9 @@
          SYSSTATE ARCHLVL=2
 *
          SAVE  (14,12),,'&MODNAME.  &SYSTIME &SYSDATE' Save regs
-         LHI   15,0
+*
+         LHI   15,0                    Set RC = 0
+*
          RETURN (14,12),,RC=(15)       Return to caller
 *
          END   &MODNAME

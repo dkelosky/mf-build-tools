@@ -3,7 +3,7 @@ export interface IScript {
   command: string;
 };
 
-export const scripts: IScript[] = [
+export const asmScripts: IScript[] = [
   {
     script: `upload:{{{name}}}`,
     command: `npm run upload -- asmpgm/{{{name}}}.asm`,

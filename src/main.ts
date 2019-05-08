@@ -2,7 +2,7 @@
 import { version, command, parse, help, Command, description } from "commander";
 import { init } from "./commands/init";
 import { update } from "./commands/update";
-import { generate } from "./commands/generate";
+import { genasm } from "./commands/genasm";
 
 version(`0.0.1`)
 description(`Example:\n` +
@@ -32,7 +32,7 @@ command("generate <name>")
   .option("-o, --only", "skip other scripts")
   .description("generate new entry")
   .action((name: string, cmdObj: Command) => {
-    generate(name, `.`, cmdObj);
+    genasm(name, `.`, cmdObj);
   });
 
 const cmd = parse(process.argv);

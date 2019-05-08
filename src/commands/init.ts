@@ -1,11 +1,9 @@
 import { Command } from "commander";
-import { readFile, writeFile, unlink } from "fs";
-import { compile } from "handlebars";
 import { promisify } from "util";
 import { run } from "../utils/run";
-import { dirname } from "path";
 import { ncp } from "ncp";
-import { generate } from "./generate";
+import { render } from "../utils/render";
+import { genasm } from "./genasm";
 
 const CONFIG_DIR_SUFFIX = "/config";
 const CONFIG_DEFAULT = "/default.ts";
@@ -52,14 +50,14 @@ export async function init(name: string, cmdObj: Command) {
   try {
     await run(`npm install`, cdw);
   } catch (err) {
-    console.error(`\n>>> Failure: ${err}\n`);
-
+    console.error(`\n>>> Run failure <<<\n${err}\n`);
   }
+
   // generate first scripts
   try {
-    generate(name, cdw);
+    genasm(name, cdw);
   } catch (err) {
-    console.error(`\n>>> Failure: ${err}\n`);
+    console.error(`\n>>> Gen failure <<<\n${err}\n`);
   }
 
   // init git
@@ -72,24 +70,3 @@ export async function init(name: string, cmdObj: Command) {
   console.log(`Initializing complete!`);
 }
 
-/**
- * Asynchronously read and write
- * @param {string} path
- * @param {object} data
- */
-async function render(path: string, data: object, newName?: string) {
-  const rf = promisify(readFile);
-  const file = await rf(path);
-  const template = compile(file.toString());
-  const result = template(data);
-  const wf = promisify(writeFile);
-  const df = promisify(unlink);
-
-  if (newName) {
-    await df(path);
-    await wf(dirname(path) + `/${newName}`, result);
-  } else {
-    await wf(path, result);
-  }
-
-}

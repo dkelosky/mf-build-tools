@@ -8,3 +8,4 @@
 - detect a re-init
 - command to add new asm pgms and update package.json scripts and default config
 - allow init within a folder and make name optional; use folder name as the project name
+- remove job from config

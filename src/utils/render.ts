@@ -3,11 +3,6 @@ import { readFile, writeFile, unlink } from "fs";
 import { compile } from "handlebars";
 import { dirname } from "path";
 
-/**
- * Asynchronously read and write
- * @param {string} path
- * @param {object} data
- */
 export async function render(path: string, data: object, newName?: string) {
   const rf = promisify(readFile);
   const file = await rf(path);

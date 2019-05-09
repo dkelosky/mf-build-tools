@@ -108,6 +108,18 @@ export async function genasm(name: string, cdw: string, cmdObj?: Command) {
     });
   }
 
+  const allScripts: any = {}
+  Object.assign(allScripts, pkg.scripts); // copy
+  console.log(allScripts)
+  delete pkg.scripts; // remove
+  pkg[`scripts`] = {};
+  const sortedKeys = Object.keys(allScripts).sort();
+  console.log(sortedKeys)
+  for (let key of sortedKeys) {
+    console.log(`key: ${key}`)
+    pkg.scripts[key] = allScripts[key];
+  }
+
   writeFileSync(`${cdw}/package.json`, JSON.stringify(pkg, null, 2));
 
   console.log(`Scripts added!`);

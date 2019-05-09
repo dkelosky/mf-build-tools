@@ -42,7 +42,7 @@ export async function init(name: string, cmdObj: Command) {
   });
   await render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_DEFAULT}`, { name: name.toUpperCase() });
   await render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
-  await render(`${cdw}${PACKAGE_JSON}`, { name: name.toLowerCase() }); // NOTE(Kelosky): wait for the last one only
+  await render(`${cdw}${PACKAGE_JSON}`, { name: name.toLowerCase() });
   console.log(`Initial templates rendered...`);
 
   // init npm

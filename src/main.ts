@@ -27,12 +27,10 @@ command("update")
   });
 
 command("generate <name>")
-  // .option("-d, --deploy", "include deploy")
   .option("-c, --chdsect", "include chdsect")
-  .option("-o, --only", "skip other scripts")
   .description("generate new entry")
-  .action((name: string, cmdObj: Command) => {
-    genasm(name, `.`, cmdObj);
+  .action((name: string) => {
+    genasm(name, `.`);
   });
 
 const cmd = parse(process.argv);

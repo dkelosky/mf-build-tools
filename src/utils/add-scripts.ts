@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
-import { asmScripts } from "./script-constant";
+import { asmScripts } from "./constants";
 import { compile } from "handlebars";
 
 

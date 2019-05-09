@@ -83,11 +83,11 @@ export async function genasm(name: string, cdw: string, cmdObj?: Command) {
   }
 
   // if (cmdObj && cmdObj.deploy) {
-  deployScripts.forEach((entry) => {
-    const script = compile(entry.script)(data);
-    const command = compile(entry.command)(data);
-    pkg.scripts[script] = command;
-  });
+  // deployScripts.forEach((entry) => {
+  //   const script = compile(entry.script)(data);
+  //   const command = compile(entry.command)(data);
+  //   pkg.scripts[script] = command;
+  // });
   // }
 
   if (cmdObj && cmdObj.chdsect) {

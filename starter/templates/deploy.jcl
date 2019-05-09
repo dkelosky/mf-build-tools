@@ -15,9 +15,9 @@
 //OUTPUT   DD   SYSOUT=*
 //SYSTSIN  DD  *
 {{#if target}}
-FTP {{{target}}}
+ftp {{{target}}}
 {{else}}
-FTP {{{../deploy.ftp.target}}}
+ftp {{{../deploy.ftp.target}}}
 {{/if}}
 /*
 //INPUT    DD   *
@@ -30,15 +30,7 @@ FTP {{{../deploy.ftp.target}}}
 {{{.}}}
 {{/each}}
 {{/if}}
-{{#if includes}}
-{{#each includes}}
-put {{{.}}}
-{{/each}}
-{{else}}
-{{#each ../deploy.ftp.includes}}
-put {{{.}}}
-{{/each}}
-{{/if}}
+put {{{@key}}}
 quit
 /*
 {{/each}}

@@ -102,8 +102,11 @@ export default {
   deploy: {
     ftp: {
       options: [
+        "user",
+        "password",
+        "binary",
         "cd 'PUBLIC.TEMPLATE.LOADLIB'",
-        "mdelete *"
+        // "mdelete *"
       ],
       target: "localhost",
       sources: {

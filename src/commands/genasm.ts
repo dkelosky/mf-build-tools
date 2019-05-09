@@ -1,6 +1,6 @@
 import { compile } from "handlebars";
-import { asmScripts, deployScripts, chdsectScripts } from "../utils/script-constant";
-import { readFileSync, writeFileSync, fstat } from "fs";
+import { asmScripts } from "../utils/script-constant";
+import { readFileSync, writeFileSync } from "fs";
 import { Command } from "commander";
 import { ncp } from "ncp";
 import { promisify } from "util";
@@ -82,21 +82,14 @@ export async function genasm(name: string, cdw: string, cmdObj?: Command) {
     throw new Error(`Generate failed`);
   }
 
-  // if (cmdObj && cmdObj.deploy) {
-  // deployScripts.forEach((entry) => {
-  //   const script = compile(entry.script)(data);
-  //   const command = compile(entry.command)(data);
-  //   pkg.scripts[script] = command;
-  // });
+  // // TODO(Kelosky): allow add chdsect
+  // if (cmdObj && cmdObj.chdsect) {
+  //   chdsectScripts.forEach((entry) => {
+  //     const script = compile(entry.script)(data);
+  //     const command = compile(entry.command)(data);
+  //     pkg.scripts[script] = command;
+  //   });
   // }
-
-  if (cmdObj && cmdObj.chdsect) {
-    chdsectScripts.forEach((entry) => {
-      const script = compile(entry.script)(data);
-      const command = compile(entry.command)(data);
-      pkg.scripts[script] = command;
-    });
-  }
 
   if (cmdObj && cmdObj.only) {
     // skip other scripts
@@ -110,13 +103,10 @@ export async function genasm(name: string, cdw: string, cmdObj?: Command) {
 
   const allScripts: any = {}
   Object.assign(allScripts, pkg.scripts); // copy
-  console.log(allScripts)
   delete pkg.scripts; // remove
   pkg[`scripts`] = {};
   const sortedKeys = Object.keys(allScripts).sort();
-  console.log(sortedKeys)
   for (let key of sortedKeys) {
-    console.log(`key: ${key}`)
     pkg.scripts[key] = allScripts[key];
   }
 

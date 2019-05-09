@@ -5,59 +5,42 @@ export interface IScript {
 
 export const asmScripts: IScript[] = [
   {
-    script: `upload:{{{name}}}`,
+    script: `z:upload:{{{name}}}`,
     command: `npm run upload -- asmpgm/{{{name}}}.asm`,
   },
   {
     script: `build:{{{name}}}`,
-    command: `npm run upload:{{{name}}} && npm run genbuildjcl:build:{{{name}}} && npm run submit:build:{{{name}}}`,
+    command: `npm run z:upload:{{{name}}} && npm run z:genbuildjcl:build:{{{name}}} && npm run z:submit:build:{{{name}}}`,
   },
   {
     script: `execute:{{{name}}}`,
-    command: `npm run upload:{{{name}}} && npm run genbuildjcl:execute:{{{name}}} && npm run submit:execute:{{{name}}}`,
+    command: `npm run z:genbuildjcl:execute:{{{name}}} && npm run z:submit:execute:{{{name}}}`,
   },
   {
-    script: `submit:build:{{{name}}}`,
+    script: `z:submit:build:{{{name}}}`,
     command: "zowe jobs submit lf \"./lib/jcl/build_{{{name}}}.jcl\" --directory \"./output\"",
   },
   {
-    script: `submit:execute:{{{name}}}`,
+    script: `z:submit:execute:{{{name}}}`,
     command: "zowe jobs submit lf \"./lib/jcl/execute_{{{name}}}.jcl\" --directory \"./output\"",
   },
   {
-    script: `genbuildjcl:build:{{{name}}}`,
-    command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}}`,
+    script: `z:genbuildjcl:build:{{{name}}}`,
+    command: `npm run z:genbuildjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}} bind/{{{name}}}`,
   },
   {
-    script: `genbuildjcl:execute:{{{name}}}`,
-    command: `npm run genbuildjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}}`,
+    script: `z:genbuildjcl:execute:{{{name}}}`,
+    command: `npm run z:genbuildjcl -- jcl-out-file=./lib/jcl/execute_{{{name}}}.jcl execute/{{{name}}}`,
   },
 ];
 
-// TODO(Kelosky): purge this job output after submit
-// it will be under deploy:{{{name}}} to submit and delete
-export const deployScripts: IScript[] = [
-  {
-    script: `deploy:{{{name}}}`,
-    command: "npm run gendeployjcl:{{{name}}} && npm run submit:deploy:{{{name}}}",
-  },
-  {
-    script: `submit:deploy:{{{name}}}`,
-    command: "zowe jobs submit lf \"./lib/jcl/deploy_{{{name}}}.jcl\" --directory \"./output\"",
-  },
-  {
-    script: `gendeployjcl:{{{name}}}`,
-    command: `npm run gendeployjcl -- jcl-out-file=./lib/jcl/deploy_{{{name}}}.jcl`,
-  },
-];
-
-export const chdsectScripts: IScript[] = [
-  {
-    script: `submit:chdsect:{{{name}}}`,
-    command: "zowe jobs submit lf \"./lib/jcl/chdsect_{{{name}}}.jcl\" --directory \"./output\"",
-  },
-  {
-    script: `genchdsectjcl:chdsect:{{{name}}}`,
-    command: `npm run genchdsectjcl -- jcl-out-file=./lib/jcl/chdsect_{{{name}}}.jcl`,
-  },
-];
+// export const chdsectScripts: IScript[] = [
+//   {
+//     script: `submit:chdsect:{{{name}}}`,
+//     command: "zowe jobs submit lf \"./lib/jcl/chdsect_{{{name}}}.jcl\" --directory \"./output\"",
+//   },
+//   {
+//     script: `genchdsectjcl:chdsect:{{{name}}}`,
+//     command: `npm run genchdsectjcl -- jcl-out-file=./lib/jcl/chdsect_{{{name}}}.jcl`,
+//   },
+// ];

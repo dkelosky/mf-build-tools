@@ -6,13 +6,14 @@
   "scripts": {
     "allocate": "node ./lib/scripts/allocate",
     "delete": "node ./lib/scripts/delete",
-    "postinstall": "npm run build:scripts",
-    "upload": "node ./lib/scripts/upload",
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:scripts": "tsc --pretty",
-    "gendeployjcl": "node ./lib/scripts/gendeployjcl",
-    "genbuildjcl": "node ./lib/scripts/genbuildjcl"
+    "upload": "node ./lib/scripts/upload",
+    "z://------------------------------": "echo ------------------------------",
+    "z:build:scripts": "tsc --pretty",
+    "z:genbuildjcl": "node ./lib/scripts/genbuildjcl",
+    "z:gendeployjcl": "node ./lib/scripts/gendeployjcl",
+    "z:postinstall": "npm run z:build:scripts"
   },
   "author": "",
   "license": "MIT",

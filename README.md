@@ -1,4 +1,4 @@
-`zowe cli`
+# Setup
 
-
-https://github.com/dkelosky/assembler-metal-template
+Example:
+`mf-build generate myasmpgm --hlq USER.WORK.DS --account IZUACCT`

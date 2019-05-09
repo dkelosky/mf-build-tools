@@ -1,45 +1,36 @@
-//CAMSTSRV JOB 105300000,
-//             'COMP/ASM/BIND/RUN',
-//             MSGCLASS=A,
-//             CLASS=A,
+//{{{settings.name}}} JOB {{{settings.account}}},
+//             '{{{settings.description}}}',
+//             MSGCLASS={{{settings.messageClass}}},
+//             CLASS={{{settings.jobClass}}},
 //             MSGLEVEL=(1,1),
 //             REGION=0M
 /*JOBPARM SYSAFF=*
+{{#each deploy.ftp.sources}}
 //*
-//* FTP SAMPWTSK
+//* FTP {{{@key}}}
 //*
-//FTPOUT   EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=128
+//FTPOUT{{@index}} EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=128
 //SYSTCPD  DD   DISP=SHR,DSN=VTAM.TCPIP.TCPIP.DATA
 //SYSTSPRT DD   SYSOUT=*
 //OUTPUT   DD   SYSOUT=*
 //SYSTSIN  DD  *
-ftp mvsxe13.lvn.broadcom.net
+{{#if target}}
+ftp {{{target}}}
+{{else}}
+ftp {{{../deploy.ftp.target}}}
+{{/if}}
 /*
 //INPUT    DD   *
-kelda16
-kelda16
-binary
-lcd 'KELDA16.TSRV.LOADLIB'
-cd 'KELDA16.WORK.LOADLIB'
-put SAMPWTSK
+{{#if options}}
+{{#each options}}
+{{{.}}}
+{{/each}}
+{{else}}
+{{#each ../deploy.ftp.options}}
+{{{.}}}
+{{/each}}
+{{/if}}
+put {{{@key}}}
 quit
 /*
-//*
-//* FTP CAMSTSRV
-//*
-//FTPOUT   EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=128
-//SYSTCPD  DD   DISP=SHR,DSN=VTAM.TCPIP.TCPIP.DATA
-//SYSTSP{{@index}} DD   SYSOUT=*
-//OUTPUT{{@index}} DD   SYSOUT=*
-//SYSTSIN  DD  *
-ftp mvsxe13.lvn.broadcom.net
-/*
-//INPUT    DD   *
-kelda16
-kelda16
-binary
-lcd 'KELDA16.TSRV.LOADLIB'
-cd 'KELDA16.WORK.LOADLIB'
-put CAMSTSRV
-quit
-/*
+{{/each}}

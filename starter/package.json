@@ -6,6 +6,8 @@
   "scripts": {
     "allocate": "node ./lib/scripts/allocate",
     "delete": "node ./lib/scripts/delete",
+    "deploy": "npm run z:gendeployjcl -- jcl-out-file=./lib/jcl/deploy.jcl && npm run z:submit:deploy",
+    "postinstall": "npm run z:build:scripts",
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "upload": "node ./lib/scripts/upload",
@@ -13,7 +15,7 @@
     "z:build:scripts": "tsc --pretty",
     "z:genbuildjcl": "node ./lib/scripts/genbuildjcl",
     "z:gendeployjcl": "node ./lib/scripts/gendeployjcl",
-    "z:postinstall": "npm run z:build:scripts"
+    "z:submit:deploy": "zowe jobs submit lf \"./lib/jcl/deploy.jcl\" --directory \"./output\""
   },
   "author": "",
   "license": "MIT",

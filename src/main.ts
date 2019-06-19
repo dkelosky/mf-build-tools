@@ -3,6 +3,7 @@ import { version, command, parse, help, Command, description } from "commander";
 import { init } from "./commands/init";
 import { update } from "./commands/update";
 import { genasm } from "./commands/genasm";
+import { genc } from "./commands/genc";
 
 version(`0.0.1`)
 description(`Example:\n` +
@@ -17,6 +18,9 @@ command("init <name>")
   .option("-a, --account <account>", "job account number")
   .description("initialize a project")
   .action((name: string, cmdObj: Command) => {
+    if (name.length > 8) {
+      name = name.substr(0, 8).toLowerCase();
+    }
     init(name, cmdObj);
   });
 
@@ -27,10 +31,17 @@ command("update")
   });
 
 command("generate <name>")
-  .option("-c, --chdsect", "include chdsect")
+  .option("-c, --cpgm", "generate metal c")
   .description("generate new entry")
-  .action((name: string) => {
-    genasm(name, `.`);
+  .action((name: string, cmdObj: Command) => {
+    if (name.length > 8) {
+      name = name.substr(0, 8).toLowerCase();
+    }
+    if (cmdObj.cpgm) {
+      genc(name, `.`);
+    } else {
+      genasm(name, `.`);
+    }
   });
 
 const cmd = parse(process.argv);

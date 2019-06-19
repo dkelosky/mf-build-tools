@@ -16,10 +16,6 @@ const TEMPLATE_ASM = "/template.asm";
 
 export async function init(name: string, cmdObj: Command) {
 
-  // truncate to 8 chars
-  if (name.length > 8) {
-    name = name.substr(0, 8);
-  }
   const cdw = `./${name}`;
 
   console.log(`Initializing ${cdw}...`);
@@ -43,8 +39,8 @@ async function initRenders(name: string, cdw: string, cmdObj: Command) {
   });
   await render(`${cdw}${CONFIG_DIR_SUFFIX}${CONFIG_DEFAULT}`, { name: name.toUpperCase() });
   await render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
-  await render(`${cdw}${README}`, { name: name.toLowerCase() });
-  await render(`${cdw}${PACKAGE_JSON}`, { name: name.toLowerCase() });
+  await render(`${cdw}${README}`, { name, });
+  await render(`${cdw}${PACKAGE_JSON}`, { name, });
   console.log(`Initial templates rendered...`);
 
 }

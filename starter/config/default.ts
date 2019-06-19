@@ -5,7 +5,6 @@ import assemblyOptions from "./imports/assembly/assemblyOptions";
 import assemblyMaclibs from "./imports/assembly/assemblyMaclibs";
 import metalOptions64 from "./imports/metal/metalOptions64";
 import metalIncludes from "./imports/metal/metalIncludes";
-import metalOptions from "./imports/metal/metalOptions";
 
 export default {
 
@@ -27,6 +26,15 @@ export default {
 
   // job info
   job: {
+
+    // metal c compilation configuration
+    compile: {
+      options: metalOptions64,
+      includes: metalIncludes,
+      sources: {
+        /// @compileSources - THIS MUST FOLLOW job.compile.sources
+      },
+    },
 
     // assemble configuration
     assemble: {

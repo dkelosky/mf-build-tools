@@ -26,11 +26,11 @@ async function copyTemplate(name: string, cdw: string) {
     console.error(`\n>>> Copy failure <<<\n${err}\n`);
   }
 
-  updateConfig(name, [`@assembleSources`, `@bindSources`, `@executeSources`, `@deploySources`]);
-
   try {
     await render(`${cdw}${TEMPLATE_ASM_DIR}${TEMPLATE_ASM}`, { name: name.toUpperCase() }, `${name}.asm`);
   } catch (err) {
     console.error(`\n>>> Render failure <<<\n${err}\n`);
   }
+
+  updateConfig(name, [`@assembleSources`, `@bindSources`, `@executeSources`, `@deploySources`]);
 }

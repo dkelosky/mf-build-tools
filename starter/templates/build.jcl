@@ -140,7 +140,11 @@
  {{/if}}
  SETOPT PARM(REUS=REFR)
  ORDER {{{@key}}}(P)
+ {{#if entry}}
+ ENTRY {{{entry}}}
+ {{else}}
  ENTRY {{{@key}}}
+ {{/if}}
  NAME {{{@key}}}(R)
 /*
 //SYSLMOD  DD  DISP=SHR,DSN={{{../settings.hlq}}}.LOADLIB({{{@key}}})

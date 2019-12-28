@@ -3,7 +3,6 @@ import { promisify } from "util";
 import { run } from "../utils/run";
 import { ncp } from "ncp";
 import { render } from "../utils/render";
-import { genasm } from "./genasm";
 import { addScripts } from "../utils/add-scripts";
 
 const CONFIG_DIR_SUFFIX = "/config";
@@ -42,7 +41,6 @@ async function initRenders(name: string, cdw: string, cmdObj: Command) {
   await render(`${cdw}${README}`, { name, });
   await render(`${cdw}${PACKAGE_JSON}`, { name, });
   console.log(`Initial templates rendered...`);
-
 }
 
 async function initCopies(name: string, cdw: string) {

@@ -1,4 +1,4 @@
-/node_modules
-/jest-stare
-/lib
+node_modules
+jest-stare
+lib
 !/starter/config/local.ts

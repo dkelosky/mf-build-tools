@@ -10,7 +10,7 @@ export async function update() {
   console.log(`Script and template files updated...`);
 
   console.log(`Rebuilding scripts...`);
-  await run(`npm run build:scripts`);
+  await run(`npm run z:build:scripts`);
 
   console.log(`Update complete!`);
 }

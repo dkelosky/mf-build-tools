@@ -4,7 +4,6 @@ import { render } from "../utils/render";
 import { addScripts } from "../utils/add-scripts";
 import { updateConfig } from "../utils/update-config";
 
-
 export async function genasm(name: string, cdw: string) {
 
   await copyTemplate(name, cdw);

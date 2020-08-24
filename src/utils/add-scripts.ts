@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
-import { asmScripts } from "./constants";
+import { asmScripts, cScripts } from "./constants";
 import { compile } from "handlebars";
 
 
@@ -8,7 +8,7 @@ interface IData {
   target?: string;
 }
 
-export function addScripts(name: string, cdw: string) {
+export function addScripts(name: string, cdw: string, c = false) {
 
   const PACKAGE_JSON = "/package.json";
 
@@ -19,11 +19,19 @@ export function addScripts(name: string, cdw: string) {
   try {
     pkg = JSON.parse(readFileSync(`${cdw}${PACKAGE_JSON}`).toString());
 
-    asmScripts.forEach((entry) => {
-      const script = compile(entry.script)(data);
-      const command = compile(entry.command)(data);
-      pkg.scripts[script] = command;
-    });
+    if (c) {
+      cScripts.forEach((entry) => {
+        const script = compile(entry.script)(data);
+        const command = compile(entry.command)(data);
+        pkg.scripts[script] = command;
+      });
+    } else {
+      asmScripts.forEach((entry) => {
+        const script = compile(entry.script)(data);
+        const command = compile(entry.command)(data);
+        pkg.scripts[script] = command;
+      });
+    }
 
     pkg = orderScriptKeys(pkg);
 

@@ -9,7 +9,7 @@ import { writeFileSync } from "fs";
 export async function genc(name: string, cdw: string) {
 
   copyTemplate(name, cdw);
-  addScripts(name, cdw);
+  addScripts(name, cdw, true);
 
   console.log(`Scripts added!`);
 }

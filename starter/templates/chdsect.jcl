@@ -25,20 +25,26 @@
 {{/each}}
 {{/if}}
 /*
-//SYSADATA DD  DISP=SHR,DSN={{{../settings.hlq}}}.ADATA({{{@key}}})
-//SYSLIB   DD  DISP=SHR,DSN={{{../settings.hlq}}}.ASMMAC
+//SYSADATA DD  DISP=SHR,
+// DSN={{{../settings.hlq}}}.ADATA({{{@key}}})
+//SYSLIB   DD  DISP=SHR,
+// DSN={{{../settings.hlq}}}.ASMMAC
 {{#if includes}}
 {{#each includes}}
-//         DD  DISP=SHR,DSN={{{.}}}
+//         DD  DISP=SHR,
+// DSN={{{.}}}
 {{/each}}
 {{else}}
 {{#each ../convert.assemble/includes}}
-//         DD  DISP=SHR,DSN={{{.}}}
+//         DD  DISP=SHR,
+// DSN={{{.}}}
 {{/each}}
 {{/if}}
 //SYSPRINT DD  SYSOUT=*
-//SYSIN    DD  DISP=SHR,DSN={{{../settings.hlq}}}.ASMCHDR({{{@key}}})
-//SYSLIN   DD  DISP=SHR,DSN={{{../settings.hlq}}}.OBJLIB({{{@key}}})
+//SYSIN    DD  DISP=SHR,
+// DSN={{{../settings.hlq}}}.ASMCHDR({{{@key}}})
+//SYSLIN   DD  DISP=SHR,
+// DSN={{{../settings.hlq}}}.OBJLIB({{{@key}}})
 //         ENDIF
 //         IF (RC = 0) THEN
 //DSECT{{@index}} EXEC PGM=CCNEDSCT,
@@ -47,7 +53,8 @@
 //STEPLIB  DD  DISP=SHR,DSN=CEE.SCEERUN2
 //         DD  DISP=SHR,DSN=CBC.SCCNCMP
 //         DD  DISP=SHR,DSN=CEE.SCEERUN
-//SYSADATA DD  DISP=SHR,DSN={{{../settings.hlq}}}.ADATA({{{@key}}})
+//SYSADATA DD  DISP=SHR,
+// DSN={{{../settings.hlq}}}.ADATA({{{@key}}})
 //EDCDSECT DD SYSOUT=*
 //SYSPRINT DD SYSOUT=*
 //SYSOUT   DD SYSOUT=*

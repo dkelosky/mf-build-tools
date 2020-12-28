@@ -6,6 +6,14 @@ import { DataSets } from "./doc/IDataSets";
 const hlq: string = config.get<string>('settings.hlq');
 const dataSets: DataSets = config.get<DataSets>('dataSets');
 
+let volser: string;
+
+try {
+  volser = config.get<string>('settings.volumeSerial');
+} catch (e) {
+  // do nothing
+}
+
 Object.keys(dataSets).forEach((key) => {
   let cmd = `zowe files create pds ` +
     `"${hlq}.${key}" ` +
@@ -17,7 +25,10 @@ Object.keys(dataSets).forEach((key) => {
     `--sz ${dataSets[key].size} `;
 
   // add volume if specified
-  if (dataSets[key].volumeSerial) cmd += `--vs ${dataSets[key].volumeSerial}`
+  if (dataSets[key].volumeSerial)
+    cmd += `--vs ${dataSets[key].volumeSerial}`;
+  else if (volser)
+    cmd += `--vs ${volser}`;
 
   // log command and run it
   console.log(cmd)

@@ -16,6 +16,7 @@ description(`Example:\n` +
 command("init <name>")
   .option("-q, --hlq <hlq>", "high level qualifier")
   .option("-a, --account <account>", "job account number")
+  .option("-f, --fast", "no npm install or git init")
   .description("initialize a project")
   .action((name: string, cmdObj: Command) => {
     if (name.length > 8) {

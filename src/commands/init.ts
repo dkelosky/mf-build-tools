@@ -22,8 +22,12 @@ export async function init(name: string, cmdObj: Command) {
   await initCopies(name, cdw);
   await initRenders(name, cdw, cmdObj);
   await initAsm(name, cdw);
-  await initNpm(cdw);
-  initGit(cdw);
+  if (cmdObj.fast) {
+    // do nothing
+  } else {
+    await initNpm(cdw);
+    initGit(cdw);
+  }
 
   console.log(`Initializing complete!`);
 }

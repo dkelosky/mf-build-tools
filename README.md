@@ -1,4 +1,4 @@
 # Setup
 
 Example:
-`mf-build generate myasmpgm --hlq USER.WORK.DS --account IZUACCT`
+`mf-build init hello -q IBMUSER.HELLO -a IZUACCT`

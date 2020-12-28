@@ -41,10 +41,10 @@ export default {
       options: assemblyOptions,
       includes: assemblyMaclibs,
       sources: {
+
+        // each source can have it's own `options: [ ... ]`
+
         /// @assembleSources - THIS MUST FOLLOW job.assemble.sources
-        "{{{name}}}": {
-          // override options here
-        },
       },
     },
 
@@ -53,19 +53,10 @@ export default {
       options: bindOptions,
       // includes: nothing included in every bind right now
       sources: {
+
+        // each source can have it's one `includes: [ ... ]` or `objects: [ ... ]`
+
         /// @bindSources - THIS MUST FOLLOW job.bind.sources
-        "{{{name}}}": {
-          // override options here
-
-          // include data sets containing objects
-          includes: [
-          ],
-
-          // include certain objects
-          objects: [
-
-          ]
-        },
       }
     },
 
@@ -73,21 +64,25 @@ export default {
     execute: {
       // options: no parms to every exec right now (options are PARM=)
       sources: {
+
+        /**
+         * Add JCL PARM via:
+         *   options: "'HELLO WORLD'",
+         *
+         * Add arbitrary JCL statements via:
+         *  jclStatements: [
+         *    "//SNAP     DD  SYSOUT=*",
+         *    "//SYSPRINT DD  SYSOUT=*",
+         *    "//SYSMDUMP DD  DUMMY",
+         *    "//SNAP     DD  SYSOUT=*",
+         *    "//IN       DD  *",
+         *    "CAN YOU SEE ME",
+         *    "CAN YOU SEE ALSO",
+         *    "/*",
+         *  ],
+         */
+
         /// @executeSources - THIS MUST FOLLOW job.execute.sources
-        "{{{name}}}": {
-          // override options here (options are PARM=)
-          options: "'HELLO WORLD'",
-          jclStatements: [
-            "//SNAP     DD  SYSOUT=*",
-            "//SYSPRINT DD  SYSOUT=*",
-            "//SYSMDUMP DD  DUMMY",
-            "//SNAP     DD  SYSOUT=*",
-            "//IN       DD  *",
-            "CAN YOU SEE ME",
-            "CAN YOU SEE ALSO",
-            "/*",
-          ],
-        },
       }
     },
   },
@@ -119,7 +114,6 @@ export default {
       target: "localhost",
       sources: {
         /// @deploySources - THIS MUST FOLLOW deploy.sources
-        "{{{name}}}": {},
       }
     }
   },

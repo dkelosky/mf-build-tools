@@ -1,10 +1,22 @@
-import { readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 
 export function updateConfig(name: string, ids: string[]) {
   try {
-    let file = readFileSync(`config/default.ts`).toString();
 
-    if (file.indexOf(name.toUpperCase()) > 0) {
+    let file: string;
+
+    let fileName = `./config/default.ts`;
+
+    // handle case where we are creating a new project versus updating an existing one in cwd
+    if (existsSync(fileName)) {
+      file = readFileSync(fileName).toString();
+    } else {
+      fileName = `./${name}/config/default.ts`;
+      file = readFileSync(fileName).toString();
+    }
+
+    // 512 is where the settings.name begins in default.ts, if the name is found after this, it's already added
+    if (file.indexOf(name.toUpperCase()) > 512) {
       console.warn(`\n >>> Skipping config update, ${name.toUpperCase()} found in file << <\n`);
     } else {
 
@@ -26,7 +38,7 @@ export function updateConfig(name: string, ids: string[]) {
         lines.splice(pos + accumulator++, 0, `        "${name.toUpperCase()}": {},`);
       }
 
-      writeFileSync(`config/default.ts`, lines.join(`\n`));
+      writeFileSync(fileName, lines.join(`\n`));
     }
 
   } catch (err) {

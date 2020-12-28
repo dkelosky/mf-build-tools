@@ -8,7 +8,7 @@ interface IData {
   target?: string;
 }
 
-export function addScripts(name: string, cdw: string, c = false) {
+export function addScripts(name: string, cwd: string, c = false) {
 
   const PACKAGE_JSON = "/package.json";
 
@@ -17,8 +17,9 @@ export function addScripts(name: string, cdw: string, c = false) {
   const data: IData = { name };
   let pkg: any;
   try {
-    pkg = JSON.parse(readFileSync(`${cdw}${PACKAGE_JSON}`).toString());
+    pkg = JSON.parse(readFileSync(`${cwd}${PACKAGE_JSON}`).toString());
 
+    // TODO(Kelosky): add C language scripts code consolidation
     if (c) {
       cScripts.forEach((entry) => {
         const script = compile(entry.script)(data);
@@ -35,7 +36,7 @@ export function addScripts(name: string, cdw: string, c = false) {
 
     pkg = orderScriptKeys(pkg);
 
-    writeFileSync(`${cdw}${PACKAGE_JSON}`, JSON.stringify(pkg, null, 2));
+    writeFileSync(`${cwd}${PACKAGE_JSON}`, JSON.stringify(pkg, null, 2));
   } catch (err) {
     console.error(err);
     throw new Error(`Generate failed`);

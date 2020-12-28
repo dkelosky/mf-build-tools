@@ -6,7 +6,7 @@ export interface IScript {
 export const cScripts: IScript[] = [
   {
     script: `z:upload:{{{name}}}`,
-    command: `npm run upload -- cpgm/{{{name}}}.c`,
+    command: `npm run upload -- -s cpgm/{{{name}}}.c`,
   },
   {
     script: `build:{{{name}}}`,
@@ -37,7 +37,7 @@ export const cScripts: IScript[] = [
 export const asmScripts: IScript[] = [
   {
     script: `z:upload:{{{name}}}`,
-    command: `npm run upload -- asmpgm/{{{name}}}.asm`,
+    command: `npm run upload -- -s asmpgm/{{{name}}}.asm`,
   },
   {
     script: `build:{{{name}}}`,

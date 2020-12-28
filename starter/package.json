@@ -11,14 +11,11 @@
     "purge": "node ./lib/scripts/purge",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run z:genbuildjcl && npm run z:submit:build",
-    "build:{{{name}}}": "npm run z:upload:{{{name}}} && npm run z:genbuildjcl:build:{{{name}}} && npm run z:submit:build:{{{name}}}",
     "upload": "node ./lib/scripts/upload",
     "z://------------------------------": "echo ------------------------------",
     "z:build:scripts": "tsc --pretty",
-    "z:genbuildjcl:build:{{{name}}}": "npm run z:genbuildjcl -- jcl-out-file=./lib/jcl/build_{{{name}}}.jcl assemble/{{{name}}}",
     "z:genbuildjcl": "node ./lib/scripts/genbuildjcl",
     "z:gendeployjcl": "node ./lib/scripts/gendeployjcl",
-    "z:upload:{{{name}}}": "npm run upload -- asmpgm/{{{name}}}.asm",
     "z:submit:build": "zowe jobs submit lf \"./lib/jcl/build.jcl\" --directory \"./output\"",
     "z:submit:deploy": "zowe jobs submit lf \"./lib/jcl/deploy.jcl\" --directory \"./output\""
   },
@@ -32,14 +29,13 @@
     "@types/mkdirp": "^0.5.2",
     "@types/ncp": "^2.0.1",
     "@types/node": "^11.13.6",
+    "commander": "^5.0.0",
     "config": "^3.1.0",
     "handlebars": "^4.1.2",
     "jest": "^24.7.1",
-    "jest-stare": "^1.13.2",
+    "jest-stare": "^2.2.0",
     "mkdirp": "^0.5.1",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.4"
+    "tslint": "^5.16.0"
   }
 }

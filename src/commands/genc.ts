@@ -6,18 +6,18 @@ import { updateConfig } from "../utils/update-config";
 import { writeFileSync } from "fs";
 
 
-export async function genc(name: string, cdw: string) {
+export async function genc(name: string, cwd: string) {
 
-  copyTemplate(name, cdw);
-  addScripts(name, cdw, true);
+  copyTemplate(name, cwd);
+  addScripts(name, cwd, true);
 
   console.log(`Scripts added!`);
 }
 
-function copyTemplate(name: string, cdw: string) {
+function copyTemplate(name: string, cwd: string) {
   const TEMPLATE_CPGM_DIR = "/zossrc/cpgm";
 
-  writeFileSync(`${cdw}${TEMPLATE_CPGM_DIR}/${name}.c`,
+  writeFileSync(`${cwd}${TEMPLATE_CPGM_DIR}/${name}.c`,
     `int main() {\n` +
     `  return 0;\n` +
     `}\n`

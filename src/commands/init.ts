@@ -5,6 +5,7 @@ import { ncp } from "ncp";
 import { render } from "../utils/render";
 import { addScripts } from "../utils/add-scripts";
 import { genasm } from "./genasm";
+import { readFileSync, writeFileSync } from "fs";
 
 const CONFIG_DIR_SUFFIX = "/config";
 const CONFIG_DEFAULT = "/default.ts";
@@ -22,6 +23,7 @@ export async function init(name: string, cmdObj: Command) {
 
   await initProject(name, cwd);
   await initRenders(name, cwd, cmdObj);
+  gitignoreLocal(cwd);
   await genasm(name, cwd);
   if (cmdObj.fast) {
     // do nothing
@@ -74,11 +76,9 @@ async function initGit(cwd: string) {
   await run(`git commit -m "Initial commit"`, cwd);
 }
 
-function initAsm(name: string, cwd: string) {
-  // generate first scripts
-  try {
-    addScripts(name, cwd);
-  } catch (err) {
-    console.error(`\n>>> Gen failure <<<\n${err}\n`);
-  }
+function gitignoreLocal(cwd: string) {
+  const file = readFileSync(`${cwd}/.gitignore`).toString();
+  const lines = file.split('\n');
+  lines.push(`config/local.ts`);
+  writeFileSync(`${cwd}/.gitignore`, lines.join('\n'));
 }

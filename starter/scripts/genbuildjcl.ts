@@ -27,7 +27,7 @@ const steps = new Map<string, Map<string, null> | null>();
 const numOfParms = process.argv.length - 2;
 
 // output jcl file name
-const jclTemplatefile = `./templates/build.jcl`;
+const jclTemplatefile = `./templates/jcl/build.jcl`;
 const jclOutFile = getOutFile(`./lib/jcl/build.jcl`);
 
 // if input parms, add to map, then loop up job keys and keep what is in the map

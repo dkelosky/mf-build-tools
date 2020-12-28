@@ -54,7 +54,7 @@ export default {
       // includes: nothing included in every bind right now
       sources: {
 
-        // each source can have it's one `includes: [ ... ]` or `objects: [ ... ]`
+        // each source can have it's own `entry: name`, `includes: [ ... ]`, or `objects: [ ... ]`
 
         /// @bindSources - THIS MUST FOLLOW job.bind.sources
       }

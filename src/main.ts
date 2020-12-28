@@ -9,7 +9,6 @@ version(`0.0.1`)
 description(`Example:\n` +
   `  mf-build init asmtest -q kelda16.asmtest -a 105300000\n` +
   `  mf-build generate newmod\n` +
-  `  mf-build generate ikjtcb --chdsect\n` +
   `  mf-build update\n`
   );
 
